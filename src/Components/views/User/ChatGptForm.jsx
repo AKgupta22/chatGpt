@@ -7,6 +7,7 @@ import axiosBase from '../../../utils/axios'
 const ChatGptForm = () => {
     const [response, setResponse] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [form] = Form.useForm();
 
     const onFinish = async (values) => {
         setIsLoading(true)
@@ -16,6 +17,7 @@ const ChatGptForm = () => {
                 setResponse(response.data?.choices[0].message?.content)
             }
             setIsLoading(false)
+            form.resetFields()
         }
         catch (e) {
             console.log(e);
@@ -40,18 +42,12 @@ const ChatGptForm = () => {
                 />
             }
             <Form
+                form={form}
                 name="basic"
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
                 style={{
-                    marginTop: "1rem"
-                }}
-                initialValues={{
-                    remember: true,
+                    display: 'flex',
+                    marginTop: "1rem",
+                    justifyContent: "center"
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -65,11 +61,12 @@ const ChatGptForm = () => {
                             message: 'Please enter your message!',
                         },
                     ]}
+                    style={{ width: "85%" }}
                 >
-                    <Input placeholder='enter your message' style={{ height: "4rem" }} />
+                    <Input placeholder='enter your message' style={{ height: "3rem" }} />
                 </Form.Item>
 
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" style={{ height: "3rem" }}>
                     {isLoading ? "Please wait.." : <SendOutlined />}
                 </Button>
             </Form>

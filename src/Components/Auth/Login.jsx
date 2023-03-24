@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Spin } from 'antd';
+import { Button, Form, Input } from 'antd';
 import FormWrapper from '../Common/FormWrapper';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosBase from '../../utils/axios'
 
 const Login = () => {
     const navigate = useNavigate()
     const [errorMsg, setErrorMsg] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [form] = Form.useForm();
+    const { token } = useParams()
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -15,17 +17,24 @@ const Login = () => {
         }
     }, [])
 
+    useEffect(() => {
+        if (token) {
+            console.log(token);
+        }
+    }, [token])
+
     const onFinish = async (values) => {
         setIsLoading(true)
         try {
             const response = await axiosBase.post('auth/signin/', values)
             setErrorMsg('')
             if (response.data?.token) {
-                localStorage.setItem('userId', response.data?.user?.id)
+                localStorage.setItem('username', response.data?.user?.username)
                 localStorage.setItem('token', response.data?.token)
                 localStorage.setItem('role', response.data?.role)
                 navigate('profile')
             }
+            form.resetFields()
         }
         catch (e) {
             console.log(e);
@@ -42,13 +51,12 @@ const Login = () => {
         <FormWrapper headerText="Login" linkText="Don't have account? Register Now" linkTo="/register">
             <Form
                 name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ width: "80%", marginLeft: "2%" }}
-                initialValues={{ remember: true }}
+                style={{ width: "80%", margin: "auto" }}
+                className='auth-form'
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                form={form}
 
             >
                 <Form.Item
@@ -69,12 +77,10 @@ const Login = () => {
                 >
                     <Input.Password />
                 </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit" className='form-button'>
-                        {isLoading ? <Spin /> : "Login"}
-                    </Button>
-                </Form.Item>
+                <div style={{ textAlign: "center" }}>
+                    <Button style={{ width: "100px" }} type="primary" htmlType="submit" className='form-button'>
+                        {isLoading ? 'Please wait...' : "Login"}
+                    </Button></div>
             </Form>
             <p className='errorMsg'>{errorMsg}</p>
         </FormWrapper>

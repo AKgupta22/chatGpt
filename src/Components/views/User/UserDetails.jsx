@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { profileImage } from '../../../utils/constant'
 
 export default function UserDetails() {
-    const [role, setRole] = useState('User')
+    const [username, setUsername] = useState('User')
 
     const navigate = useNavigate()
     const logout = () => {
@@ -14,15 +14,15 @@ export default function UserDetails() {
     }
 
     useEffect(() => {
-        const role = localStorage.getItem('role')
-        if (role)
-            setRole(role)
+        const username = localStorage.getItem('username')
+        if (username)
+            setUsername(username)
     }, [])
 
     return (
         <div className='user-details-container'>
             <div className='user-details-container_header'>
-                Hello {role}
+                Hello {username}
             </div>
             <div className='user-details-container_image'>
                 <img src={profileImage} alt="profile" />

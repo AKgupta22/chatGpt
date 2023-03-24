@@ -14,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/:token" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="*" element={<Login />} />
         <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
