@@ -1,11 +1,10 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Image } from 'antd';
 import { SendOutlined } from '@ant-design/icons'
-import TextArea from 'antd/es/input/TextArea';
 import { useState } from 'react';
 import axiosBase from '../../../utils/axios'
 
-const ChatGptForm = () => {
-    const [response, setResponse] = useState('')
+const HypnoscriptForm = () => {
+    const [response, setResponse] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [errorText, setErrorText] = useState('')
     const [form] = Form.useForm();
@@ -14,9 +13,9 @@ const ChatGptForm = () => {
         setIsLoading(true)
         setErrorText('')
         try {
-            const response = await axiosBase.post('gpt/chat/', values)
-            if (response.data?.choices[0]?.message?.content) {
-                setResponse(response.data?.choices[0].message?.content)
+            const response = await axiosBase.post('gpt/generate-image/', values)
+            if (response.data?.image_urls) {
+                setResponse(response.data?.image_urls)
             }
             setIsLoading(false)
             form.resetFields()
@@ -34,15 +33,26 @@ const ChatGptForm = () => {
     return (
         <div className='chatGpt-Form'>
             {
-                response && <TextArea
-                    showCount
-                    style={{
-                        height: 200,
-                        resize: 'none',
-                    }}
-                    placeholder="response will show here"
-                    value={response}
-                />
+                response.length > 0 &&
+                <div style={{ height: "300px", overflow: "scroll" }}>
+                    <Image.PreviewGroup
+                        preview={{
+                            onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
+                            height:"500px",
+
+                        }}
+                    >
+                        {
+                            response.map((item, i) => {
+                                return <Image
+                                    width={150}
+                                    src={item}
+                                    style={{ padding: ".5rem" }}
+                                />
+                            })
+                        }
+                    </Image.PreviewGroup>
+                </div>
             }
             <Form
                 form={form}
@@ -57,16 +67,16 @@ const ChatGptForm = () => {
                 autoComplete="off"
             >
                 <Form.Item
-                    name="message"
+                    name="text"
                     rules={[
                         {
                             required: true,
-                            message: 'Please enter your message!',
+                            message: 'Please enter image text!',
                         },
                     ]}
                     style={{ width: "85%" }}
                 >
-                    <Input placeholder='enter your message' style={{ height: "3rem" }} />
+                    <Input placeholder='enter your text to generate image' style={{ height: "3rem" }} />
                 </Form.Item>
 
                 <Button type="primary" htmlType="submit" style={{ height: "3rem" }}>
@@ -77,4 +87,4 @@ const ChatGptForm = () => {
         </div>
     )
 }
-export default ChatGptForm;
+export default HypnoscriptForm;

@@ -39,12 +39,16 @@ const LeftNav = () => {
         else if (key === '4') {
             navigate('/adminHome')
         }
+        else if (key === '5') {
+            navigate('/hypnoscript')
+        }
     };
 
     const items = (role === 'admin' ? [
         getItem('Profile', 'prof', <ProfileOutlined />, [
             getItem('Update Password', '1'),
             getItem('ChatGPT', '2'),
+            getItem('Hypnoscript', '5'),
         ]),
         getItem('Admin', 'admin', <HomeOutlined />, [
             getItem('Manage Users', '4')
@@ -53,6 +57,7 @@ const LeftNav = () => {
         getItem('Profile', 'prof', <ProfileOutlined />, [
             getItem('Update Password', '1'),
             getItem('ChatGPT', '2'),
+            getItem('Hypnoscript', '5'),
             getItem('Deactivate account', '3')
         ])
     ])

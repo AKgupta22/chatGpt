@@ -3,6 +3,7 @@ import { Button, Spin, Table } from 'antd';
 import { CheckOutlined, DeleteOutlined, EditOutlined, PlusCircleOutlined, StopOutlined } from '@ant-design/icons';
 import axiosBase from '../../../utils/axios'
 import ModifyUserModal from './ModifyUserModal';
+import axios from 'axios';
 
 export default function ManageUsers() {
 
@@ -42,17 +43,31 @@ export default function ManageUsers() {
   ];
 
   const [data, setData] = useState([])
+  const [responseData, setResponseData] = useState({})
   const [isShowModal, setIsShowModal] = useState(false);
   const [editId, setEditId] = useState('')
   const [editData, setEditData] = useState({})
   const [deleteId, setDeleteId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const fetchData = async () => {
+  const fetchData = async (url) => {
+    let callUrl;
+
+    if (url)
+      callUrl = await axios.get(url, {
+        headers: {
+          Authorization: `token ${localStorage.getItem("token")}`
+        }
+      })
+
+    else
+      callUrl = await axiosBase.get('auth/admin-users/')
+
     try {
-      const response = await axiosBase.get('auth/admin-users/')
+      const response = callUrl
       if (response.data) {
-        const sortedData = response.data?.sort((a, b) => a.id - b.id)
+        setResponseData(response.data)
+        const sortedData = response.data?.results?.sort((a, b) => a.id - b.id)
         setData(sortedData)
       }
     }
@@ -104,8 +119,12 @@ export default function ManageUsers() {
           columns={columns}
           dataSource={data}
           pagination={false}
-          scroll={{ x: 400, y: 320 }}
+          scroll={{ x: 400, y: 280 }}
         />
+      </div>
+      <div className='table-pagination-btn'>
+        <Button type='primary' onClick={() => fetchData(responseData?.previous)} disabled={!responseData?.previous}>Prev</Button>
+        <Button type='primary' onClick={() => fetchData(responseData?.next)} style={{ marginLeft: ".5rem" }} disabled={!responseData?.next}>Next</Button>
       </div>
       {
         isShowModal && <ModifyUserModal isShowModal={isShowModal} setIsShowModal={setIsShowModal} editId={editId} setEditId={setEditId} editData={editData} setEditData={setEditData} fetchData={fetchData} />
