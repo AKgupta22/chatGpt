@@ -1,0 +1,127 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    min-height: 100vh;
+    background-color: #74EBD5;
+    background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    width: 50%;
+    padding: 4rem 0;
+    background: #fff;
+    border-radius: 1rem;
+}
+
+@media (max-width:678px) {
+    .form-box {
+        width: 75%;
+    }
+}
+
+@media (max-width: 575px) {
+    :where(.css-dev-only-do-not-override-ph9edi).ant-form .ant-form-item .ant-form-item-control {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+        max-width: none;
+    }
+
+    .form-box {
+        width: 90%;
+    }
+}
+
+.form-header {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: cursive;
+}
+
+.form-box .form-button {
+    width: 100%;
+}
+
+.link_button {
+    color: #090909;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: cursive;
+}
+
+.user-details-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+@media (max-width:500px) {
+    .user-details-container {
+        flex-direction: column;
+    }
+}
+
+.user-details-container_header {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #191919;
+    font-family: sans-serif;
+    text-transform: capitalize;
+}
+
+.user-details-container_image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-details-container_image img {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    margin-bottom: .5rem;
+}
+
+.modal_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.successMsg,
+.errorMsg {
+    text-align: center;
+    color: green;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.errorMsg {
+    color: red;
+}
+
+.chatGpt-Form {
+    padding: 1.5rem;
+    background: #fff;
+    width: 85%;
+    margin: auto;
+    margin-top: 2rem;
+    border-radius: .8rem;
+}
