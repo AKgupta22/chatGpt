@@ -42,7 +42,7 @@ const SignUp = () => {
 
     return (
         <>
-            <FormWrapper headerText="SignUp" linkText="Already have account? Login" linkTo="/">
+            <FormWrapper headerText="SignUp" linkText="Already have account? Login" linkTo="/login">
                 <Form
                     name="basic"
                     style={{ width: "80%", margin: "auto" }}
@@ -79,7 +79,7 @@ const SignUp = () => {
                 <p className='errorMsg'>{errorMsg}</p>
             </FormWrapper>
             {
-                openModal && <ConfirmationModal message={successMsg} modalOpen={openModal} setModalOpen={setOpenModal} navigateUrl='/' type="success" />
+                openModal && <ConfirmationModal message={successMsg} modalOpen={openModal} setModalOpen={setOpenModal} navigateUrl='/login' type="success" />
             }
         </>
     )

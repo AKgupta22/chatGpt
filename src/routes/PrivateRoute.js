@@ -5,7 +5,7 @@ const PrivateRoute = ({ children }) => {
     return token ? (
         children
     ) : (
-        <Navigate to="/" />
+        <Navigate to="/login" />
     );
 };
 export default PrivateRoute

@@ -10,7 +10,7 @@ export default function UserDetails() {
     const navigate = useNavigate()
     const logout = () => {
         localStorage.clear()
-        navigate('/')
+        navigate('/login')
     }
 
     useEffect(() => {

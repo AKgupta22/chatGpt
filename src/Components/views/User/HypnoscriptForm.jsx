@@ -2,6 +2,7 @@ import { Button, Form, Input, Image } from 'antd';
 import { SendOutlined } from '@ant-design/icons'
 import { useState } from 'react';
 import axiosBase from '../../../utils/axios'
+import audioMusic from '../../../assets/media/music.MP3'
 
 const HypnoscriptForm = () => {
     const [response, setResponse] = useState([])
@@ -38,7 +39,7 @@ const HypnoscriptForm = () => {
                     <Image.PreviewGroup
                         preview={{
                             onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
-                            height:"500px",
+                            height: "500px",
 
                         }}
                     >
@@ -83,6 +84,17 @@ const HypnoscriptForm = () => {
                     {isLoading ? "Please wait.." : <SendOutlined />}
                 </Button>
             </Form>
+            <div style={{ width: "80%", margin: "auto" }} > 
+                <audio style={{ width: "100%" }} id="player" autoplay controls><source src={audioMusic} type="audio/mp3" /></audio>
+                <div className='music-btn-container'>
+                    <Button className='music-btn' type='primary'>Speak</Button>
+                    <Button className='music-btn' type='primary'>Stop</Button>
+                    <Button className='music-btn' type='primary'>Previous</Button>
+                    <Button className='music-btn' type='primary'>Next</Button>
+                    <Button className='music-btn' type='primary'>Random</Button>
+                </div>
+            </div>
+
             {errorText && <p className='errorMsg'>{errorText}</p>}
         </div>
     )

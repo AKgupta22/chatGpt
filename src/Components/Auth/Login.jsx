@@ -25,7 +25,7 @@ const Login = () => {
                 localStorage.setItem('username', response.data?.user?.username)
                 localStorage.setItem('token', response.data?.token)
                 localStorage.setItem('role', response.data?.role)
-                navigate('profile')
+                navigate('/profile')
             }
             form.resetFields()
         }

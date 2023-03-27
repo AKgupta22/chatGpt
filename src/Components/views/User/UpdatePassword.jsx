@@ -15,7 +15,7 @@ const UpdatePassword = () => {
             setErrorMsg('')
             if (response.data?.message) {
                 localStorage.clear()
-                navigate('/')
+                navigate('/login')
             }
         }
         catch (e) {

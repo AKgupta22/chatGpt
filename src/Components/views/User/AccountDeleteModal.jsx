@@ -16,7 +16,7 @@ const DeleteAccountButton = () => {
             setIsLoading(false)
             setModalVisible(false);
             localStorage.clear()
-            navigate('/')
+            navigate('/login')
         }
         catch (e) {
             setIsLoading(false)
