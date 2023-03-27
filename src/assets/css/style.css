@@ -180,3 +180,9 @@ body {
         gap: .5rem;
     }
 }
+
+.tab-items {
+    width: 84%;
+    margin: auto;
+    background: #fff;
+}
